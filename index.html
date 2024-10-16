@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cylinder Volume Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cylinder Volume Visualizer</h1>
+        <form id="cylinder-form">
+            <label for="diameter">Diameter (cm):</label>
+            <input type="number" id="diameter" required>
+
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" required>
+
+            <label for="volume">Volume to visualize:</label>
+            <input type="number" id="volume" required>
+
+            <label for="unit">Select Volume Unit:</label>
+            <select id="unit">
+                <option value="cm3">cm³</option>
+                <option value="mL">mL</option>
+                <option value="L">L</option>
+                <option value="m3">m³</option>
+            </select>
+
+            <button type="submit">Visualize</button>
+        </form>
+
+        <div id="visualization"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
