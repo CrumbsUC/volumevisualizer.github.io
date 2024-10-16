@@ -1,5 +1,3 @@
-import * as THREE from 'three';
-
 function cylinderVolume(radius, height) {
     /** Calculate the volume of a cylinder. */
     return Math.PI * Math.pow(radius, 2) * height;
@@ -44,42 +42,39 @@ function plotCylinder(radius, height, filledVolume) {
     animate();
 }
 
-document.getElementById('cylinder-form').addEventListener('submit', function(e) {
+document.getElementById('cylinder -form').addEventListener('submit', (e) => {
     e.preventDefault();
-
     const diameter = parseFloat(document.getElementById('diameter').value);
     const height = parseFloat(document.getElementById('height').value);
-    let volumeInput = parseFloat(document.getElementById('volume').value);
+    const volume = parseFloat(document.getElementById('volume').value);
     const unit = document.getElementById('unit').value;
 
     // Convert diameter to radius
     const radius = diameter / 2;
 
     // Convert volume to cubic centimeters
-    let volumeInCm3;
+    let volumeInCubicCentimeters;
     switch (unit) {
+        case 'cm3':
+            volumeInCubicCentimeters = volume;
+            break;
         case 'mL':
-            volumeInCm3 = volumeInput; // 1 mL = 1 cm³
+            volumeInCubicCentimeters = volume * 1;
             break;
         case 'L':
-            volumeInCm3 = volumeInput * 1000; // 1 L = 1000 cm³
+            volumeInCubicCentimeters = volume * 1000;
             break;
         case 'm3':
-            volumeInCm3 = volumeInput * 1000000; // 1 m³ = 1,000,000 cm³
+            volumeInCubicCentimeters = volume * 1000000;
             break;
         default:
-            volumeInCm3 = volumeInput; // cm³
+            console.error('Invalid unit:', unit);
+            return;
     }
 
-    // Calculate the total volume of the cylinder
-    const totalVolume = cylinderVolume(radius, height);
+    // Calculate the filled volume
+    const filledVolume = Math.min(volumeInCubicCentimeters, cylinderVolume(radius, height));
 
-    // Check if the volume to visualize exceeds the cylinder's volume
-    if (volumeInCm3 > totalVolume) {
-        alert("The volume exceeds the cylinder's total volume. Adjusting to maximum capacity.");
-        volumeInCm3 = totalVolume;
-    }
-
-    // Plot the cylinder with the specified filled volume
-    plotCylinder(radius, height, volumeInCm3);
+    // Visualize the cylinder
+    plotCylinder(radius, height, filledVolume);
 });
