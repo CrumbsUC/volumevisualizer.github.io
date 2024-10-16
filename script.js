@@ -1,8 +1,10 @@
+// Function to calculate the volume of a cylinder
 function cylinderVolume(radius, height) {
     /** Calculate the volume of a cylinder. */
     return Math.PI * Math.pow(radius, 2) * height;
 }
 
+// Function to visualize the cylinder with the specified filled volume
 function plotCylinder(radius, height, filledVolume) {
     /** Visualize the cylinder with the specified filled volume. */
     const scene = new THREE.Scene();
@@ -42,39 +44,42 @@ function plotCylinder(radius, height, filledVolume) {
     animate();
 }
 
-document.getElementById('cylinder -form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const diameter = parseFloat(document.getElementById('diameter').value);
-    const height = parseFloat(document.getElementById('height').value);
-    const volume = parseFloat(document.getElementById('volume').value);
-    const unit = document.getElementById('unit').value;
+// Wait for the DOM to load before adding event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('cylinder-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const diameter = parseFloat(document.getElementById('diameter').value);
+        const height = parseFloat(document.getElementById('height').value);
+        const volume = parseFloat(document.getElementById('volume').value);
+        const unit = document.getElementById('unit').value;
 
-    // Convert diameter to radius
-    const radius = diameter / 2;
+        // Convert diameter to radius
+        const radius = diameter / 2;
 
-    // Convert volume to cubic centimeters
-    let volumeInCubicCentimeters;
-    switch (unit) {
-        case 'cm3':
-            volumeInCubicCentimeters = volume;
-            break;
-        case 'mL':
-            volumeInCubicCentimeters = volume * 1;
-            break;
-        case 'L':
-            volumeInCubicCentimeters = volume * 1000;
-            break;
-        case 'm3':
-            volumeInCubicCentimeters = volume * 1000000;
-            break;
-        default:
-            console.error('Invalid unit:', unit);
-            return;
-    }
+        // Convert volume to cubic centimeters
+        let volumeInCubicCentimeters;
+        switch (unit) {
+            case 'cm3':
+                volumeInCubicCentimeters = volume;
+                break;
+            case 'mL':
+                volumeInCubicCentimeters = volume * 1; // mL to cm³
+                break;
+            case 'L':
+                volumeInCubicCentimeters = volume * 1000; // L to cm³
+                break;
+            case 'm3':
+                volumeInCubicCentimeters = volume * 1000000; // m³ to cm³
+                break;
+            default:
+                console.error('Invalid unit:', unit);
+                return;
+        }
 
-    // Calculate the filled volume
-    const filledVolume = Math.min(volumeInCubicCentimeters, cylinderVolume(radius, height));
+        // Calculate the filled volume
+        const filledVolume = Math.min(volumeInCubicCentimeters, cylinderVolume(radius, height));
 
-    // Visualize the cylinder
-    plotCylinder(radius, height, filledVolume);
+        // Visualize the cylinder
+        plotCylinder(radius, height, filledVolume);
+    });
 });
