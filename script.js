@@ -42,14 +42,29 @@ function visualizeCylinder(radius, height, filledVolume) {
 
     const ctx = canvas.getContext('2d');
 
-    // Draw cylinder outline
+    // Draw cylinder outline (the body)
     ctx.fillStyle = 'lightgray';
-    ctx.fillRect(100, 100, radius * 2, height); // Draw the cylinder's body
+    ctx.fillRect(150, 100, radius * 2, height); // Draw the cylinder's body
+
+    // Draw the top of the cylinder
+    ctx.beginPath();
+    ctx.arc(150 + radius, 100, radius, 0, Math.PI, true);
+    ctx.fill();
+
+    // Draw the bottom of the cylinder
+    ctx.beginPath();
+    ctx.arc(150 + radius, 100 + height, radius, 0, Math.PI, false);
+    ctx.fill();
 
     // Calculate filled height
     const filledHeight = filledVolume / (Math.PI * Math.pow(radius, 2));
 
     // Draw filled volume
     ctx.fillStyle = 'blue';
-    ctx.fillRect(100, 100 + (height - filledHeight), radius * 2, filledHeight); // Draw the filled part
+    ctx.fillRect(150, 100 + (height - filledHeight), radius * 2, filledHeight); // Draw the filled part
+
+    // Draw the top of the filled volume
+    ctx.beginPath();
+    ctx.arc(150 + radius, 100 + (height - filledHeight), radius, 0, Math.PI, true);
+    ctx.fill();
 }
