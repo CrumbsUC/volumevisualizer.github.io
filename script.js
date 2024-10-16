@@ -37,22 +37,19 @@ function visualizeCylinder(radius, height, filledVolume) {
     const canvas = document.createElement('canvas');
     canvas.width = 400;
     canvas.height = 400;
+    document.getElementById('visualization').innerHTML = ''; // Clear previous visualizations
     document.getElementById('visualization').appendChild(canvas);
 
     const ctx = canvas.getContext('2d');
 
     // Draw cylinder outline
-    ctx.beginPath();
-    ctx.arc(200, 200, radius, 0, 2 * Math.PI);
     ctx.fillStyle = 'lightgray';
-    ctx.fill();
+    ctx.fillRect(100, 100, radius * 2, height); // Draw the cylinder's body
 
     // Calculate filled height
     const filledHeight = filledVolume / (Math.PI * Math.pow(radius, 2));
 
     // Draw filled volume
-    ctx.beginPath();
-    ctx.arc(200, 200, radius, 0, 2 * Math.PI);
     ctx.fillStyle = 'blue';
-    ctx.fillRect(200 - radius, 200 - filledHeight, radius * 2, filledHeight);
+    ctx.fillRect(100, 100 + (height - filledHeight), radius * 2, filledHeight); // Draw the filled part
 }
